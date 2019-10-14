@@ -11,7 +11,20 @@ However, one problem--a sizeable one--persists. Unlike other classification prob
 
 ## Purpose:
 
-To predict the classification of a "toxic" comment from ConversationAI's Wikipedia comments corpus.
+To predict the classification of reader comments accompanying online articles from the *New York Times*. This is a multi-categorical classification task using six different "toxic" categories:
+- Toxic
+- Severe Toxic
+- Obscene
+- Threat
+- Insult
+- Identity Hate
+
+A look at the initial data:  
+![initial dataframe examples(img/toxic_categories.png)  
+
+
+## Technologies
+- Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn
 
 The dataset needed a substantial amount of cleaning. Aside from commenters' use of poor syntax and spelling, items such as IP addresses, names and extensions of files and images, (occasional) usernames, multiple escape characters, strangely placed symbols (e.g., =, @, . ., "") appeared for no discernable reason, or in the least, out of place, and several places in the text displayed words stuck together with no white space in between. NaNs were present as were 0 float values for no apparent reason. However, I was glad to see an equal number of rows for the dataset's features.
 
@@ -20,11 +33,22 @@ The dataset initially came with eight features, and I selected one, "toxic," to 
 As a result, the dataset was imbalanced. In order to rectify this problem, the original dataset was randomly sampled to produce a more even split between majority and minority classes.
 
 NLP Tasks:
-- tokenizing: I used NLTK for splitting words and sentences (tokens) into a list; in addition, I created my own script, essentially a series of list comprehensions, in an attempt to clean up what the libraries did not. I also used Keras text preprocessing to see if it had an additive effect in cleaning up text. It improved the data incrementally but not enough to make a difference (although order of execution matters). In addition, I used the following parameters:  
+- stopwords: 
+I used NLTK and Sklearn's stopword lists for removing standard and common words detracting from word frequency counts and analysis
 - stemming
-- lemmatizing
-- stop-words ('english')
-- n-grams (2)
+I took the root of each word to better generalize tokens to the data and so that the algorithm could better find contextual similarity  
+List of common contractions
+- this list changes contractions to their formalized roots, e.g., doesn't = does not; again this helps the algorithm to discern cleanly tokenized words and sub-words
+
+n-grams (2)
+
+More preprocessing:
+IP address check:
+- Leaving identifiable information intact with the comments easily causes data leakage if those IPs in the train set match those in the test set
+- Same goes for any identifiable information
+- So I conducted checks for IPs and usernames, and it turned out both were marginal in effect (e.g., only six overlapping IPs)
+Regex Condition:
+
 
 ---
 Results:

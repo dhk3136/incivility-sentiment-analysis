@@ -1,6 +1,8 @@
 # Incivility in Public Language Discourse: A Sentiment Analysis
 #### Daniel Kim
 
+![fighting wallabies](img/fighting_wallabies_unsplash.jpg)
+
 ## Overview:
 
 Sentiment Analysis within Natural Language Processing (NLP) has come a long way since its earlier days both in terms of its methodology and the innovations available to Data Scientists.

@@ -1,7 +1,7 @@
 # Incivility in Public Language Discourse: A Sentiment Analysis
 #### Daniel Kim
 
-![fighting wallabies](img/fighting_wallabies_unsplash.jpg)
+![fighting wallabies](img/boxing_wallabies_unsplash.jpg)
 
 ## Overview:
 

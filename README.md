@@ -1,7 +1,7 @@
 # Incivility in Public Language Discourse: A Sentiment Analysis
 #### Daniel Kim
 
-![fighting wallabies](img/boxing_wallabies_unsplash.jpg)
+![fighting wallabies](img/toy_boxing_unsplash.jpg)
 
 ## Overview:
 
@@ -26,6 +26,7 @@ A look at the initial data:
 ## Technologies
 - Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn
 
+## Preprocessing
 The dataset needed a substantial amount of cleaning. Aside from commenters' use of poor syntax and spelling, items such as IP addresses, names and extensions of files and images, (occasional) usernames, multiple escape characters, strangely placed symbols (e.g., =, @, . ., "") appeared for no discernable reason, or in the least, out of place, and several places in the text displayed words stuck together with no white space in between. NaNs were present as were 0 float values for no apparent reason. However, I was glad to see an equal number of rows for the dataset's features.
 
 The dataset initially came with eight features, and I selected one, "toxic," to predict its classification (1 = hit, 0 = miss). Across similar sentiment-based commenter datasets, negative sentiment generally is expressed at a highly reduced frequency compared to its counterparts in the minority class, and this dataset was no exception.

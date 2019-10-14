@@ -20,7 +20,7 @@ To predict the classification of reader comments accompanying online articles fr
 - Identity Hate
 
 A look at the initial data:  
-![initial dataframe examples(img/toxic_categories.png)  
+![initial dataframe examples](img/toxic_categories.png)  
 
 
 ## Technologies

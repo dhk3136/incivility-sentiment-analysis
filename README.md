@@ -12,22 +12,24 @@ However, one problem--a sizeable one--persists. Unlike other classification prob
 ## Purpose:
 
 To predict the classification of reader comments accompanying online articles from the *New York Times*. This is a multi-categorical classification task using six different "toxic" categories:
-- Toxic
-- Severe Toxic
-- Obscene
-- Threat
-- Insult
-- Identity Hate
+```python
+Toxic
+Severe Toxic
+Obscene
+Threat
+Insult
+Identity Hate
+```
 
 A look at the initial data:  
 - Total comments = 159571
 - Total clean comments = 143346
-- Balance = 16225
+- Remaining = 16225
 - Tagged = 35098
 
 ![toxic_class_distribution](img/toxic_distribution.png)  
 
-But wait, why the discrepancy between remaining comments (16225) and those that are tagged (35098)? Why aren't they the same? In a word: multi-tagging. The label annotators followed a methodology in which they were instructed to tag as many categories as fit the criteria. I think this makes for more robust data and simultaneously a pain in the butt dataset. The existing class imbalance is made worse by constraining 'clean' comments to unique counts while the rest can double, triple-dip across the classes. If the same criteria was applied to the toxic classes, the imbalance would be far greater. Thankfully, null values were not present in the data. The first step simply was to add an additional 'clean' feature column for the large amount of untagged text.
+But wait, why the discrepancy between remaining comments (16225) and those that are tagged (35098)? Why aren't they the same? In a word: multi-tagging. The label annotators followed a methodology in which they were instructed to tag as many categories as fit the criteria. I think this makes for more robust data and simultaneously a pain in the butt dataset. The existing class imbalance is made worse by constraining `clean` comments to unique counts while the rest can double, triple-dip, etc. across the classes. If the same criteria was applied to the `clean` class, the imbalance would be far greater. Thankfully, null values were not present in the data. The first step simply was to add an additional 'clean' feature column for the large amount of untagged text.
 
 There is nearly a 10:1 majority/minority imbalance between clean/toxic comments!  Thus, I'll attempt to address the imbalance by either oversampling the minority class or undersampling the aggregate majority class.
 

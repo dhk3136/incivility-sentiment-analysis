@@ -5,13 +5,14 @@
 
 ## Overview:
 
-Sentiment Analysis within Natural Language Processing (NLP) has come a long way since its earlier days both in terms of its methodology and the innovations available to Data Scientists.
+Sentiment Analysis within Natural Language Processing (NLP) has come a long way since its earlier days both in terms of its state-of-the-art leaps and bounds within this past year with regard to new network architectures, transfer learning, and along with these innovations, the ability to perform sentence classification with unparalleled accuracy.
 
-However, one problem--a sizeable one--persists. Unlike other classification problems, Sentiment Analysis requires extensive labeling (by humans) so that predictions have an actual target. Human bias and politics are inclusive of this problem, and especially so when the topic is polarizing, negative, and potentially offense. In the case of the organization from where I got my dataset, they conduct occasional spot-checking and follow-ups with self-reported surveys in order to remove as much subjectivity they can from annotated labels.
+However, one problem--a sizeable one--persists. Unlike other classification problems, Sentiment Analysis requires extensive labeling (by humans, and now, ML annotation) for the ostensible purpose of anthropomorphic inter-coder agreement. Other machine learning disciplines, of course, face the annotation problem, but it's far more prevalent in NLP (think how summarization might be annotated!) For example, in a Computer Vision classification task, it's a bit easier to identify / fail-to-identify something like a set of objects, cats/dogs, numerical readability or illegibility. Image ID can be bound by boxes--or not. These are all more ocular-centric, but everyday, commonsensical readability tasks. Human bias and politics are inclusive of many problems, NLP or otherwise, and especially so when the topic is polarizing, negative, and potentially offense. The organization publishing this dataset convey that they conduct occasional spot-checking and follow-ups with self-reported surveys in order to remove as much subjectivity they can from annotated labels.
 
 ## Purpose:
 
-To predict the classification of reader comments accompanying online articles from the *New York Times*. This is a multi-categorical classification task using six different "toxic" categories:
+To predict the classification of reader comments accompanying online articles from the *New York Times*.  
+This is a multi-categorical classification task using six different __toxic__ categories:
 ```python
 Toxic
 Severe Toxic
@@ -19,13 +20,15 @@ Obscene
 Threat
 Insult
 Identity Hate
-```
+```  
 
 A look at the initial data:  
-- Total comments = 159571
-- Total clean comments = 143346
-- Remaining = 16225
-- Tagged = 35098
+```python
+Total comments = 159571
+Total clean comments = 143346
+Remaining = 16225
+Tagged = 35098
+```  
 
 ![toxic_class_distribution](img/toxic_distribution.png)  
 

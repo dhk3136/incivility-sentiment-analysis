@@ -20,10 +20,18 @@ To predict the classification of reader comments accompanying online articles fr
 - Identity Hate
 
 A look at the initial data:  
-![initial dataframe examples](img/toxic_preview.png)  
-The data held 159571 rows of comments across the six categories. Thankfully, null values were not present in the data. Of the 159571 comments, I found 143346 without a categorical tag. This left only 35098 marked as 'toxic' (meaning any falling into the six categories). Thus, the first step was to feature engineer an additional 'clean' column for the large amount of untagged text. While this helped to organize the features, it's likely you can see one conspicuous problem: major class imbalance. Even amongst the 'non-clean' categories, classes are imbalanced. However, the major problem and distinction remain between the toxic and 'clean' categories.  
+- Total comments = 159571
+- Total clean comments = 143346
+- Balance = 16225
+- Tagged = 35098
 
-![toxic_class_distribution](img/toxic_class_distribution.png)  
+![toxic_class_distribution](img/toxic_distribution.png)  
+
+But wait, why the discrepancy between remaining comments (16225) and those that are tagged (35098)? Why aren't they the same? In a word: multi-tagging. The label annotators followed a methodology in which they were instructed to tag as many categories as fit the criteria. I think this makes for more robust data and simultaneously a pain in the butt dataset. The existing class imbalance is made worse by constraining 'clean' comments to unique counts while the rest can double, triple-dip across the classes. If the same criteria was applied to the toxic classes, the imbalance would be far greater. Thankfully, null values were not present in the data. The first step simply was to add an additional 'clean' feature column for the large amount of untagged text.
+
+There is nearly a 10:1 majority/minority imbalance between clean/toxic comments!  Thus, I'll attempt to address the imbalance by either oversampling the minority class or undersampling the aggregate majority class.
+
+![initial dataframe examples](img/toxic_preview.png)  
 
 ## Technologies
 - Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn

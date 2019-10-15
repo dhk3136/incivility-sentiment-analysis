@@ -21,25 +21,27 @@ To predict the classification of reader comments accompanying online articles fr
 
 A look at the initial data:  
 ![initial dataframe examples](img/toxic_preview.png)  
+The data held 159571 rows of comments across the six categories. Thankfully, null values were not present in the data. Of the 159571 comments, I found 143346 without a categorical tag. This left only 35098 marked as 'toxic' (meaning any falling into the six categories). Thus, the first step was to feature engineer an additional 'clean' column for the large amount of untagged text. While this helped to organize the features, it's likely you can see one conspicuous problem: major class imbalance. Even amongst the 'non-clean' categories, classes are imbalanced. However, the major problem and distinction remain between the toxic and 'clean' categories.  
 
+![toxic_class_distribution](img/toxic_class_distribution.png)  
 
 ## Technologies
 - Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn
 
 ## Preprocessing
-The dataset needed a substantial amount of cleaning. Aside from commenters' use of poor syntax and spelling, items such as IP addresses, names and extensions of files and images, (occasional) usernames, multiple escape characters, strangely placed symbols (e.g., =, @, . ., "") appeared for no discernable reason, or in the least, out of place, and several places in the text displayed words stuck together with no white space in between. NaNs were present as were 0 float values for no apparent reason. However, I was glad to see an equal number of rows for the dataset's features.
+The dataset needed a substantial amount of cleaning. Aside from commenters' use of poor syntax and spelling, items such as IP addresses, usernames, and extensions of files and images, multiple escape characters, strangely placed symbols (e.g., =, @, . ., "") appeared for no discernable reason, or in the least, out of place, and several places in the text displayed words stuck together with no white space in between.
 
 The dataset initially came with eight features, and I selected one, "toxic," to predict its classification (1 = hit, 0 = miss). Across similar sentiment-based commenter datasets, negative sentiment generally is expressed at a highly reduced frequency compared to its counterparts in the minority class, and this dataset was no exception.
 
-As a result, the dataset was imbalanced. In order to rectify this problem, the original dataset was randomly sampled to produce a more even split between majority and minority classes.
+To address the class imbalance, the original dataset was randomly sampled to produce a more even split between majority and minority classes.
 
 NLP Tasks:
-- stopwords: 
-I used NLTK and Sklearn's stopword lists for removing standard and common words detracting from word frequency counts and analysis
-- stemming
-I took the root of each word to better generalize tokens to the data and so that the algorithm could better find contextual similarity  
-List of common contractions
-- this list changes contractions to their formalized roots, e.g., doesn't = does not; again this helps the algorithm to discern cleanly tokenized words and sub-words
+- Stopwords: 
+ - I used NLTK and Sklearn's stopword lists for removing standard and common words detracting from word frequency counts and analysis
+- Stemming
+ - I took the root of each word to better generalize tokens to the data and so that the algorithm could better find contextual similarity  
+- Common contractions
+ - this list changes contractions to their formalized roots, e.g., doesn't = does not; again this helps the algorithm to discern cleanly tokenized words and sub-words
 
 n-grams (2)
 
@@ -64,9 +66,3 @@ Recall
 f1-score  
 0.79  
 
-
-__Redux, Next Steps__
-- First, choose another dataset--or at least one that's far more balance in terms of classes
-- Pay more attention to term frequency importance and relationship to predictive score
-- Understand and know how to troubleshoot your dataset when your accuracy score is close to perfect
-- Continue work on the project as something to show others as a way of showing NLP potential projects

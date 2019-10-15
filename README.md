@@ -12,7 +12,8 @@ However, one problem--a sizeable one--persists. Unlike other classification prob
 ## Purpose:
 
 To predict the classification of reader comments accompanying online articles from the *New York Times*.  
-This is a multi-categorical classification task using six different __toxic__ categories:
+
+This is a multi-categorical classification task containing __six toxic categories__:
 ```python
 Toxic
 Severe Toxic
@@ -32,7 +33,11 @@ Tagged = 35098
 
 ![toxic_class_distribution](img/toxic_distribution.png)  
 
-But wait, why the discrepancy between remaining comments (16225) and those that are tagged (35098)? Why aren't they the same? In a word: multi-tagging. The label annotators followed a methodology in which they were instructed to tag as many categories as fit the criteria. I think this makes for more robust data and simultaneously a pain in the butt dataset. The existing class imbalance is made worse by constraining `clean` comments to unique counts while the rest can double, triple-dip, etc. across the classes. If the same criteria was applied to the `clean` class, the imbalance would be far greater. Thankfully, null values were not present in the data. The first step simply was to add an additional 'clean' feature column for the large amount of untagged text.
+Got imbalance?  
+
+But wait, why the discrepancy between remaining comments (16225) and those that are tagged (35098)? Why aren't they the same? In a word: multi-tagging. The label annotators followed a methodology in which they were instructed to tag as many categories as fit the criteria. This makes for a more robust data and simultaneously a pain in the butt dataset. Across similar sentiment-based commenter datasets, negative sentiment generally is expressed at a highly reduced frequency compared to its counterparts in the minority class, and this dataset was no exception.
+
+The existing class imbalance is made worse by constraining `clean` comments to unique counts while the rest can double, triple-dip, etc. across the classes. If the same criteria was applied to the `clean` class, the imbalance would be far greater. Thankfully, null values were not present in the data. The first step simply was to add an additional 'clean' feature column for the large amount of untagged text.
 
 There is nearly a 10:1 majority/minority imbalance between clean/toxic comments!  Thus, I'll attempt to address the imbalance by either oversampling the minority class or undersampling the aggregate majority class.
 
@@ -44,9 +49,6 @@ There is nearly a 10:1 majority/minority imbalance between clean/toxic comments!
 ## Preprocessing
 The dataset needed a substantial amount of cleaning. Aside from commenters' use of poor syntax and spelling, items such as IP addresses, usernames, and extensions of files and images, multiple escape characters, strangely placed symbols (e.g., =, @, . ., "") appeared for no discernable reason, or in the least, out of place, and several places in the text displayed words stuck together with no white space in between.
 
-The dataset initially came with eight features, and I selected one, "toxic," to predict its classification (1 = hit, 0 = miss). Across similar sentiment-based commenter datasets, negative sentiment generally is expressed at a highly reduced frequency compared to its counterparts in the minority class, and this dataset was no exception.
-
-To address the class imbalance, the original dataset was randomly sampled to produce a more even split between majority and minority classes.
 
 NLP Tasks:
 - Stopwords: 
@@ -56,16 +58,25 @@ NLP Tasks:
 - Common contractions
  - this list changes contractions to their formalized roots, e.g., doesn't = does not; again this helps the algorithm to discern cleanly tokenized words and sub-words
 
-n-grams (2)
 
 More preprocessing:
 IP address check:
 - Leaving identifiable information intact with the comments easily causes data leakage if those IPs in the train set match those in the test set
 - Same goes for any identifiable information
-- So I conducted checks for IPs and usernames, and it turned out both were marginal in effect (e.g., only six overlapping IPs)
+- So I conducted checks for IPs and usernames, and it turned out both were marginal in effect (e.g., minimal overlapping IPs)
 Regex Condition:
 
+![unique_IP_addresses](img/ip_intersection.png)
 
+I addressed the class imbalance by bootstrapping the minority classes, re-sampling the distribution numerous times to ensure a better total sample. A major check on the success of the bootstrapping attempt included the cross-val results. In other words, I ran the algorithm across both the original, intact data and against the re-sampled effort as a check for conspicuous leakage.  
+
+To my surprise, result were very similar, with and without resampling. This left me suspicious of other data leakage features. As a result, more text preprocessing was required. Using a regex condition, I eliminated interesections of IP addresses, usernames, filenames (e.g., abc.jpg), and other miscellany.
+
+Again, the results held, even increasing the score by small margins. The suspicion primarily arose because the accuracy scores were so high in cross-validation that they were almost unbelievable. After googling for similar classification problems regarding sentiment commentary, I noticed that many other algorithms also performed very well for similar tasks.
+
+## Model  
+After extensive preprocessing, I utilized 
+ 
 ---
 Results:
 Class: toxic  

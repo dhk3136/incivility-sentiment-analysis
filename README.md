@@ -12,7 +12,7 @@ Table of Contents
  * [Preprocessing](#preprocessing)
  * [Feature Engineering](#feature-engineering)
  * [Model](#model)
- * [Results](results)
+ * [Results & Metrics](results-and-metrics)
 <!--te-->
 
 ## Overview:
@@ -52,9 +52,12 @@ But wait, why the discrepancy between remaining comments (16225) and those that 
 
 The existing class imbalance is made worse by constraining `clean` comments to unique counts while the rest can double, triple-dip, etc. across the classes. If the same criteria was applied to the `clean` class, the imbalance would be far greater. Thankfully, null values were not present in the data. The first step simply was to add an additional 'clean' feature column for the large amount of untagged text.
 
-There is nearly a 10:1 majority/minority imbalance between clean/toxic comments! Thus, I'll attempt to address the imbalance by either oversampling the minority class or undersampling the aggregate majority class.
+There is nearly a 10:1 majority/minority imbalance between clean/toxic comments! Thus, I'll attempt to address the imbalance by either oversampling the minority class or undersampling the aggregate majority class.  
 
-![initial dataframe examples](img/toxic_preview.png)  
+But for now, here's a peek at a few comments. Each sample falls into one or more of the tagged categories to give you a sense of each class' criteria:
+
+[comment_1](img/comment2.png)
+[comment_2](img/comment3.png)
 
 ## Technologies
 - Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn

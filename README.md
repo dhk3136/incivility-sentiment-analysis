@@ -121,30 +121,7 @@ I used a vanilla LSTM model with modifications. I set my max sequence length at 
 
 Here's what the model looks like:  
 
-Model: "model_1"
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-input_1 (InputLayer)         (None, 200)               0         
-_________________________________________________________________
-embedding_1 (Embedding)      (None, 200, 128)          2560000   
-_________________________________________________________________
-lstm_layer (LSTM)            (None, 200, 60)           45360     
-_________________________________________________________________
-global_max_pooling1d_1 (Glob (None, 60)                0         
-_________________________________________________________________
-dropout_1 (Dropout)          (None, 60)                0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 50)                3050      
-_________________________________________________________________
-dropout_2 (Dropout)          (None, 50)                0         
-_________________________________________________________________
-dense_2 (Dense)              (None, 6)                 306       
-=================================================================
-Total params: 2,608,716
-Trainable params: 2,608,716
-Non-trainable params: 0
-_________________________________________________________________  
+![lstm model parameters](img/lstm_model_parameters.png)  
 NB: "None" means that keras is inferring shape which is a nice feature, IMO  
 
 ---

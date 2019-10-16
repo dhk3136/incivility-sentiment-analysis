@@ -3,6 +3,18 @@
 
 ![fighting wallabies](img/toy_boxing_unsplash.jpg)
 
+Table of Contents
+<!--ts-->
+ * [Overview](#overview)
+ * [Purpose](#purpose)
+ * [Data](#data)
+ * [Technologies](#technologies)
+ * [Preprocessing](#preprocessing)
+ * [Feature Engineering](#feature-engineering)
+ * [Model](#model)
+ * [Results](results)
+<!--te-->
+
 ## Overview:
 
 Sentiment Analysis within Natural Language Processing (NLP) has come a long way since its earlier days both in terms of its state-of-the-art leaps and bounds within this past year with regard to new network architectures (e.g., (transformers)[https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf), [transfer learning](https://github.com/huggingface/transformers), and along with these innovations, the ability to perform sentence classification with unparalleled accuracy.  
@@ -74,7 +86,8 @@ hay bitch thank kindly advice vandalism dick remove thing abouth berties make co
 
 Not perfect, but inspected samples showed good stopword er, stoppage, [contraction conversion](https://www.kaggle.com/jagangupta/discussion), and tokenization as well. The important thing at this point is not to study the semantic structure of the original sentence but to clean data so that approximation and contextual distance are prepped before fitting to the model. So we need additional feature engineering to address the problem.
 
-## Feature Engineering:
+## Feature Engineering
+
 IP address check:
 - Leaving identifiable information intact with the comments easily causes data leakage if those IPs in the train set match those in the test set
 - Same goes for any identifiable information such as duplicate usernames
@@ -124,7 +137,7 @@ Non-trainable params: 0
 _________________________________________________________________  
 NB: "None" means that keras is inferring shape which is a nice feature, IMO  
 
-
+---
 And here's my detailed description of each layer in the network:  
 - Start: LSTM input layer: encodes the input per length settings (e.g., max length)  
 - -----> Embedding layer: projects coordinates passed from the input layer into a vector space and sets the initial contextualization and distances in space based on similarity and relevance (e.g., dog is positioned close to cat). In doing so, the layer also reduces dimensionality while determining further parameters such as `max_features` or unique words before passing these onto the next layer.  
@@ -133,7 +146,10 @@ And here's my detailed description of each layer in the network:
 - -----> Next comes the first of two dropout layers. Essentially, dropouts are meant to increase generalization of data by randomly 'dropping out' nodes in the network. Thus, the next layer must try to make sense of the updated data, kind of like a non-recursive generator-discriminator relationship as seen in GANs.  
 - -----> The dropout layer feeds the next dense layer, and the important thing here is what it outputs--a ReLU activation function which in short can be describe as `Activation((Input X Weights) + Bias)`. The ReLU sums the output, and if positive, passes straight to the node input. If negative, it outputs zero. ReLU also greatly reduces the 'vanishing gradient' problem enabling higher performance from networks.
 -------> Another dropout layer is fed from the previous dense layer, again to help generalize to the data.
--------> Finally, the data is passed to the final (dense) layer where the data is normalized by a sigmoid function. The takeaway here is that the sigmoid 'squishes' the data into a human-readable scale of 1's and 0's since we are engaged in a classification task.
+-------> Finally, the data is passed to the final (dense) layer where the data is normalized by a sigmoid function. The takeaway here is that the sigmoid 'squishes' the data into a human-readable scale of 1's and 0's since we are engaged in a classification task.  
+
+
+## RESULTS & METRICS
 
 I've defined loss with binary cross-entropy (again, works well for classification) and utilize the popular Adam optimization technique.
 
@@ -141,15 +157,12 @@ My metrics included accuracy, loss, f1, precision, recall
 *as of keras 2.3, only accuracy and loss are included as built-in functions
 *remaining metrics are calculated by scratch within my own function
 
+AFTER 22 EPOCHS:  
+> test loss: 0.0472
+> test acc: 0.9829
+> test f1: 0.7476
+> test precision: 0.8063
+> test recall: 0.7071
 
-## RESULTS
-
-AFTER 22 EPOCHS:
-> test loss: 0.0533
-> test accuracy: 0.9817
-> test f1: 0.7288
-> test precision_m: 0.7577
-> test recall_m: 0.7267  
-
-Could be better--but overall, not too shabby. Retuning hyperparameters certainly would be my next move if this project were to continue. Interestingly, the batch size parameter thus far is most influential in score fluctuation. Generally, doubling the batch size began an epoch with a higher score than the preceding ones with smaller batch sizes. However, it converged much more quickly, and loss increased with each subsequent epoch. The default learning rate of 1e-03 was manipulated by incremental changes to little effect. Yet, I would need to try more extremes and less conservative decisions, there. The most difficult part of retuning will be the inputs, outputs of each layer, including when / how much to drop-out, trying other loss functions other than ReLU, determining the number of overall layers, and attending to the actual LSTM and its 'remembering' plus gating capacities. Other than the embedding layer which understandably has the most hyperparameters, the LSTM requires the most attention and perhaps tweaks to the weights and layer architecture surrounding it. Of course, two LSTMs in one network may also yield significant improvement.  
+Could be better--but overall, not too shabby at all. Especially so since the LSTM did not utilize any external word embeddings (e.g., FasText) or pretrained weights. Re-tuning hyperparameters certainly would be my next move if this project were to continue, although I did experiment quite a bit between training and val runs. Interestingly, the batch size parameter thus far is most influential in score fluctuation. Generally, doubling the batch size began an epoch with a higher score than the preceding ones with smaller batch sizes. However, it converged much more quickly, and loss increased with each subsequent epoch. The default learning rate of 1e-03 was manipulated by incremental changes to little effect. Yet, I would need to try more extremes and less conservative decisions, there. The most difficult part of retuning will be the inputs, outputs of each layer, including when / how much to drop-out, trying other loss functions other than ReLU, determining the number of overall layers, and attending to the actual LSTM and its 'remembering' plus gating capacities. Other than the embedding layer which understandably has the most hyperparameters, the LSTM requires the most attention and perhaps tweaks to the weights and layer architecture surrounding it. Of course, two LSTMs in one network may also yield significant improvement.  
 ___

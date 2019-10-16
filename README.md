@@ -95,6 +95,7 @@ After extensive preprocessing and feature engineering, I tokenized my data using
 ## Model  
 I used a vanilla LSTM model with modifications. I set my max sequence length at 256 (the length of sentences as input); per usual, any sentence not reaching the max length got padded so the arrays were of the same size.  
 
+[lstm-process-animation](img/lstm_animation.gif)
 
 Here's what the model looks like:  
 Model: "model_1"
@@ -141,146 +142,14 @@ My metrics included accuracy, loss, f1, precision, recall
 *remaining metrics are calculated by scratch within my own function
 
 
-## RESULTS:
-BEST OF 16 EPOCHS:
+## RESULTS
 
-Epoch 1/10
-143613/143613 [==============================] - 901s 6ms/step - loss: 0.0269 - acc: 0.9893 - f1_m: 0.8356 - precision_m: 0.8645 - recall_m: 0.8216 - val_loss: 0.0533 - val_acc: 0.9817 - val_f1_m: 0.7288 - val_precision_m: 0.7577 - val_recall_m: 0.7267
+AFTER 22 EPOCHS:
+> test loss: 0.0533
+> test accuracy: 0.9817
+> test f1: 0.7288
+> test precision_m: 0.7577
+> test recall_m: 0.7267  
 
+Could be better--but overall, not too shabby. Retuning hyperparameters certainly would be my next move if this project were to continue. Interestingly, the batch size parameter thus far is most influential in score fluctuation. Generally, doubling the batch size began an epoch with a higher score than the preceding ones with smaller batch sizes. However, it converged much more quickly, and loss increased with each subsequent epoch. The default learning rate of 1e-03 was manipulated by incremental changes to little effect. Yet, I would need to try more extremes and less conservative decisions, there. The most difficult part of retuning will be the inputs, outputs of each layer, including when / how much to drop-out, trying other loss functions other than ReLU, determining the number of overall layers, and attending to the actual LSTM and its 'remembering' plus gating capacities. Other than the embedding layer which understandably has the most hyperparameters, the LSTM requires the most attention and perhaps tweaks to the weights and layer architecture surrounding it. Of course, two LSTMs in one network may also yield significant improvement.  
 ___
-TEN EPOCHS:
-Batch size = 64
-Train on 143613 samples, validate on 15958 samples
-
-Epoch 1/10
-143613/143613 [==============================] - 901s 6ms/step - loss: 0.0269 - acc: 0.9893 - f1_m: 0.8356 - precision_m: 0.8645 - recall_m: 0.8216 - val_loss: 0.0533 - val_acc: 0.9817 - val_f1_m: 0.7288 - val_precision_m: 0.7577 - val_recall_m: 0.7267
-Epoch 2/10
-143613/143613 [==============================] - 889s 6ms/step - loss: 0.0243 - acc: 0.9903 - f1_m: 0.8528 - precision_m: 0.8727 - recall_m: 0.8450 - val_loss: 0.0577 - val_acc: 0.9817 - val_f1_m: 0.7146 - val_precision_m: 0.7830 - val_recall_m: 0.6791
-Epoch 3/10
-143613/143613 [==============================] - 880s 6ms/step - loss: 0.0218 - acc: 0.9913 - f1_m: 0.8689 - precision_m: 0.8838 - recall_m: 0.8653 - val_loss: 0.0644 - val_acc: 0.9817 - val_f1_m: 0.7237 - val_precision_m: 0.7733 - val_recall_m: 0.7030
-Epoch 4/10
-143613/143613 [==============================] - 885s 6ms/step - loss: 0.0192 - acc: 0.9923 - f1_m: 0.8882 - precision_m: 0.8985 - recall_m: 0.8871 - val_loss: 0.0707 - val_acc: 0.9811 - val_f1_m: 0.7088 - val_precision_m: 0.7588 - val_recall_m: 0.6881
-Epoch 5/10
-143613/143613 [==============================] - 891s 6ms/step - loss: 0.0174 - acc: 0.9931 - f1_m: 0.8990 - precision_m: 0.9071 - recall_m: 0.8997 - val_loss: 0.0744 - val_acc: 0.9801 - val_f1_m: 0.7063 - val_precision_m: 0.7333 - val_recall_m: 0.7073
-Epoch 6/10
-143613/143613 [==============================] - 883s 6ms/step - loss: 0.0158 - acc: 0.9938 - f1_m: 0.9097 - precision_m: 0.9155 - recall_m: 0.9118 - val_loss: 0.0789 - val_acc: 0.9800 - val_f1_m: 0.7056 - val_precision_m: 0.7283 - val_recall_m: 0.7117
-
-___
-FIVE EPOCHS:
-Batch size = 32
-Train on 143613 samples, validate on 15958 samples
-
-Epoch 1/5
-143613/143613 [==============================] - 1889s 13ms/step
-
-TRAIN
-loss: 0.0712
-acc: 0.9767
-f1_m: 0.5244
-precision_m: 0.6338
-recall_m: 0.4875
-
-VAL
-val_loss: 0.0494
-val_acc: 0.9817
-val_f1_m: 0.6491
-val_precision_m: 0.7695
-val_recall_m: 0.5995
-
-Epoch 2/5
-143613/143613 [==============================] - 1885s 13ms/step
-
-TRAIN
-loss: 0.0460
-acc: 0.9829
-f1_m: 0.6673
-precision_m: 0.7565
-recall_m: 0.6321 - 
-
-VALs
-val_loss: 0.0488
-val_acc: 0.9822
-val_f1_m: 0.6868
-val_precision_m: 0.7388
-val_recall_m: 0.6818
-
-Epoch 3/5
-143613/143613 [==============================] - 1891s 13ms/step
-
-TRAIN
-loss: 0.0409
-acc: 0.9844
-f1_m: 0.6995
-precision_m: 0.7754
-recall_m: 0.6700
-
-VAL
-val_loss: 0.0476
-val_acc: 0.9825
-val_f1_m: 0.6915
-val_precision_m: 0.7416
-val_recall_m: 0.6846
-
-Epoch 4/5
-143613/143613 [==============================] - 1863s 13ms/step
-
-TRAIN
-loss: 0.0364
-acc: 0.9858
-f1_m: 0.7272
-precision_m: 0.7873
-recall_m: 0.7056
-
-VAL
-val_loss: 0.0476
-val_acc: 0.9825
-val_f1_m: 0.6825
-val_precision_m: 0.7554
-val_recall_m: 0.6585
-
-Epoch 5/5
-143613/143613 [==============================] - 1878s 13ms/step
-
-TRAIN
-loss: 0.0321
-acc: 0.9873
-f1_m: 0.7597
-precision_m: 0.8054
-recall_m: 0.7480
-
-VAL
-val_loss: 0.0511
-val_acc: 0.9823
-val_f1_m: 0.6788
-val_precision_m: 0.7425
-val_recall_m: 0.6640
-
-<keras.callbacks.History at 0x7f54e80a82b0>
-
-
-
-ONE EPOCH:
-Batch size = 32
-Train on 143613 samples, validate on 15958 samples
-
-Epoch 1/1
-143613/143613 [==============================] - 1906s 13ms/step
-
-TRAIN
-loss: 0.0680
-acc: 0.9780
-f1_m: 0.5354
-precision_m: 0.6264
-recall_m: 0.5034
-
-VAL
-val_loss: 0.0524
-val_acc: 0.9813
-val_f1_m: 0.6072
-val_precision_m: 0.7844
-val_recall_m: 0.5287
-
-<keras.callbacks.History at 0x7f55027e2c50>
-
-
-

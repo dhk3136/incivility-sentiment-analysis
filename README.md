@@ -56,7 +56,8 @@ There is nearly a 10:1 majority/minority imbalance between clean/toxic comments!
 
 But for now, here's a peek at a few comments. Each sample falls into one or more of the tagged categories to give you a sense of each class' criteria:
 
-[comment_1](img/comment2.png)
+[comment_1](img/comment2.png)  
+
 [comment_2](img/comment3.png)
 
 ## Technologies

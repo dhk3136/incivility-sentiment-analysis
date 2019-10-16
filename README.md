@@ -45,13 +45,13 @@ Tagged = 35098
 ```  
 ![toxicity-only-comments plot](img/toxicity_only_comments.png)
 
-But wait, there's more... or is it less? When you look at the plot without the 'clean' comments, you'll notice a strange distribution.
+But wait, there's more. Or is it less? When looking at the plot which *includes* 'clean' comments, you'll notice a very strange distribution...
 
 ![toxic_class_distribution_plot](img/toxic_distribution.png)  
 
 Got imbalance?  
 
-But wait, why the discrepancy between remaining comments (16225) and those that are tagged (35098)? Why aren't they the same? In a word: multi-tagging. The label annotators followed a methodology in which they were instructed to tag as many categories as fit the criteria. This makes for a more robust data and simultaneously a pain in the butt dataset. Across similar sentiment-based commenter datasets, negative sentiment generally is expressed at a highly reduced frequency compared to its counterparts in the minority class, and this dataset was no exception.
+So why the discrepancy between remaining comments (16225) and those that are tagged (35098)? Why aren't they the same? In a word: multi-tagging. The label annotators followed a methodology in which they were instructed to tag as many categories as fit the criteria. This makes for a more robust data and simultaneously a pain in the butt dataset. Across similar sentiment-based commenter datasets, negative sentiment generally is expressed at a highly reduced frequency compared to its counterparts in the minority class, and this dataset was no exception.
 
 The existing class imbalance is made worse by constraining `clean` comments to unique counts while the rest can double, triple-dip, etc. across the classes. If the same criteria was applied to the `clean` class, the imbalance would be far greater. Thankfully, null values were not present in the data. The first step simply was to add an additional 'clean' feature column for the large amount of untagged text.
 
@@ -59,9 +59,11 @@ There is nearly a 10:1 majority/minority imbalance between clean/toxic comments!
 
 But for now, here's a peek at a few comments. Each sample falls into one or more of the tagged categories to give you a sense of each class' criteria:
 
-![comment_1](img/comment2.png)  
-
-![comment_2](img/comment3.png)
+![comment_1](img/comment1.png)  
+![comment_2](img/comment2.png)
+![comment_3](img/comment3.png)
+![comment_4](img/comment4.png)
+![comment_5](img/comment5.png)
 
 ## Technologies
 - Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn

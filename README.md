@@ -62,14 +62,13 @@ But for now, here's a peek at a few comments. Each sample falls into one or more
 ![comment_1](img/comment1.png)  
 ![comment_2](img/comment2.png)
 ![comment_3](img/comment3.png)
-![comment_4](img/comment4.png)
-![comment_5](img/comment5.png)
+
 
 ## Technologies
 - Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn
 
 ## Preprocessing
-The dataset needed a substantial amount of cleaning. Aside from commenters' use of poor syntax and spelling, items such as IP addresses, usernames, and extensions of files and images, multiple escape characters, strangely placed symbols (e.g., =, @, . ., "") appearing for no discernable reason, or in the least, out of place, and several passages in the text displayed words stuck together without whitespace.  
+The dataset needed a substantial amount of cleaning. Aside from commenters' use of poor syntax and spelling, items such as IP addresses, usernames, and extensions of files and images, multiple escape characters, strangely placed symbols (e.g., =, @, . ., "") appearing for no discernible reason, or in the least, out of place, and several passages in the text displayed words stuck together without whitespace.  
 
 NLP Tasks:
 - Stopwords: 
@@ -136,20 +135,20 @@ And here's my detailed description of each layer in the network:
 -------> Finally, the data is passed to the final (dense) layer where the data is normalized by a sigmoid function. The takeaway here is that the sigmoid 'squishes' the data into a human-readable scale of 1's and 0's since we are engaged in a classification task.  
 
 
-## RESULTS & METRICS
+## Results & Metrics
 
 I've defined loss with binary cross-entropy (again, works well for classification) and utilize the popular Adam optimization technique.
 
 My metrics included accuracy, loss, f1, precision, recall  
-*as of keras 2.3, only accuracy and loss are included as built-in functions
+*as of keras 2.3, only accuracy and loss are included as built-in functions  
 *remaining metrics are calculated by scratch within my own function
 
-AFTER 22 EPOCHS:  
-> test loss: 0.0472
-> test acc: 0.9829
-> test f1: 0.7476
-> test precision: 0.8063
-> test recall: 0.7071
+After 22 epochs:  
+- test loss: 0.0472
+- test acc: 0.9829
+- test f1: 0.7476
+- test precision: 0.8063
+- test recall: 0.7071
 
 Could be better--but overall, not too shabby at all. Especially so since the LSTM did not utilize any external word embeddings (e.g., FasText) or pretrained weights. Re-tuning hyperparameters certainly would be my next move if this project were to continue, although I did experiment quite a bit between training and val runs. Interestingly, the batch size parameter thus far is most influential in score fluctuation. Generally, doubling the batch size began an epoch with a higher score than the preceding ones with smaller batch sizes. However, it converged much more quickly, and loss increased with each subsequent epoch. The default learning rate of 1e-03 was manipulated by incremental changes to little effect. Yet, I would need to try more extremes and less conservative decisions, there. The most difficult part of retuning will be the inputs, outputs of each layer, including when / how much to drop-out, trying other loss functions other than ReLU, determining the number of overall layers, and attending to the actual LSTM and its 'remembering' plus gating capacities. Other than the embedding layer which understandably has the most hyperparameters, the LSTM requires the most attention and perhaps tweaks to the weights and layer architecture surrounding it. Of course, two LSTMs in one network may also yield significant improvement.  
 ___

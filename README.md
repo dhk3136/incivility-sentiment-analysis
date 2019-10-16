@@ -43,8 +43,11 @@ Total clean comments = 143346
 Remaining = 16225
 Tagged = 35098
 ```  
+![toxicity-only-comments plot](img/toxicity_only_comments.png)
 
-![toxic_class_distribution](img/toxic_distribution.png)  
+But wait, there's more... or is it less? When you look at the plot without the 'clean' comments, you'll notice a strange distribution.
+
+![toxic_class_distribution_plot](img/toxic_distribution.png)  
 
 Got imbalance?  
 
@@ -56,9 +59,9 @@ There is nearly a 10:1 majority/minority imbalance between clean/toxic comments!
 
 But for now, here's a peek at a few comments. Each sample falls into one or more of the tagged categories to give you a sense of each class' criteria:
 
-[comment_1](img/comment2.png)  
+![comment_1](img/comment2.png)  
 
-[comment_2](img/comment3.png)
+![comment_2](img/comment3.png)
 
 ## Technologies
 - Tensorflow, Keras, Scikit-Learn, pandas, Numpy, NLTK, Matplotlib, Seaborn
@@ -88,7 +91,7 @@ After:
 hay bitch thank kindly advice vandalism dick remove thing abouth berties make cost thats true ... ah fuck
 ```
 
-Not perfect, but inspected samples showed good stopword er, stoppage, [contraction conversion](https://www.kaggle.com/jagangupta/discussion), and tokenization as well. The important thing at this point is not to study the semantic structure of the original sentence but to clean data so that approximation and contextual distance are prepped before fitting to the model. So we need additional feature engineering to address the problem.
+Not very nice. Nor perfect, but inspected samples showed good stopword er, stoppage, [contraction conversion](https://www.kaggle.com/jagangupta/discussion), and tokenization as well. The important thing at this point is not to study the semantic structure of the original sentence but to clean data so that approximation and contextual distance are prepped before fitting to the model. So we need additional feature engineering to address the problem.
 
 ## Feature Engineering
 
@@ -112,9 +115,10 @@ After extensive preprocessing and feature engineering, I tokenized my data using
 ## Model  
 I used a vanilla LSTM model with modifications. I set my max sequence length at 256 (the length of sentences as input); per usual, any sentence not reaching the max length got padded so the arrays were of the same size.  
 
-[lstm-process-animation](img/lstm_animation.gif)
+![lstm-process-animation](img/lstm_animation.gif)
 
 Here's what the model looks like:  
+
 Model: "model_1"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
